@@ -1,51 +1,46 @@
 #include <iostream>
+#include <fstream> // Library untuk operasi file
 using namespace std;
 
+// Fungsi untuk mengonversi Celsius ke Fahrenheit
+double celsiusToFahrenheit(double celsius) {
+    return (celsius * 9.0 / 5.0) + 32;
+}
+
+// Fungsi untuk mengonversi Fahrenheit ke Celsius
+double fahrenheitToCelsius(double fahrenheit) {
+    return (fahrenheit - 32) * 5.0 / 9.0;
+}
+
 int main() {
-    
-    string type;
-    string into;
-    int temp;
-    
-    cout << "Input the temperature... "<<endl;
-    cin >> temp;
-    cout << "What's the type... "<<endl;
-    cin >> type;
-    cout << "Convert to... "<<endl;
-    cin >> into;
-    cout << "result..."<<endl;
-    
-    float a = temp + 273.15;
-    float b = temp - 273.15;
-    float c = (temp - 32) * 5/9;
-    float d = temp * (9/5) + 32;
-    float e = (temp - 32) * 5/9 + 273.15;
-    float f = (temp - 273.15) * 9/5 + 32;
-    
-    if (type == "celcius")
-        if (into == "kelvin"){
-        cout << a;
-    }
-    if (type == "kelvin")
-        if (into == "celcius"){
-        cout << b;
-    }
-    if (type == "fahrenheit")
-        if (into == "celcius"){
-        cout << c;
-    }
-    if (type == "celcius")
-        if (into == "fahrenheit"){
-        cout << d;
-    }
-    if (type == "fahrenheit")
-        if (into == "kelvin"){
-        cout << e;
-    }
-    if (type == "kevin")
-        if (into == "fahrenheit"){
-        cout << f;
+    double inputTemp, convertedTemp;
+    int choice;
+    ofstream outFile("temperature_conversion.txt"); // Membuka file output
+
+    // Input dari pengguna
+    cout << "Pilih tipe konversi suhu: " << endl;
+    cout << "1. Celsius ke Fahrenheit" << endl;
+    cout << "2. Fahrenheit ke Celsius" << endl;
+    cout << "Masukkan pilihan (1/2): ";
+    cin >> choice;
+
+    // Conditional statement untuk memilih konversi suhu
+    if (choice == 1) {
+        cout << "Masukkan suhu dalam Celsius: ";
+        cin >> inputTemp;
+        convertedTemp = celsiusToFahrenheit(inputTemp);
+        cout << inputTemp << " Celsius = " << convertedTemp << " Fahrenheit" << endl;
+        outFile << inputTemp << " Celsius = " << convertedTemp << " Fahrenheit" << endl; // Menyimpan hasil ke file
+    } else if (choice == 2) {
+        cout << "Masukkan suhu dalam Fahrenheit: ";
+        cin >> inputTemp;
+        convertedTemp = fahrenheitToCelsius(inputTemp);
+        cout << inputTemp << " Fahrenheit = " << convertedTemp << " Celsius" << endl;
+        outFile << inputTemp << " Fahrenheit = " << convertedTemp << " Celsius" << endl; // Menyimpan hasil ke file
+    } else {
+        cout << "Pilihan tidak valid!" << endl;
     }
 
-
+    outFile.close(); // Menutup file
+    return 0;
 }
